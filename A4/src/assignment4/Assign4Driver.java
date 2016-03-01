@@ -25,12 +25,47 @@ public class Assign4Driver
         }
         populateValue(dictionary, graph);
 
-        Assignment4Interface wordLadderSolver = new WordLadderSolver();
+        Assignment4Interface wordLadderSolver = new WordLadderSolver(graph);
+        int x = 0;
         
         try 
         {
-            List<String> result = wordLadderSolver.computeLadder("money", "honey");
-            boolean correct = wordLadderSolver.validateResult("money", "honey", result);
+        	while (x < input.size())
+        	{
+        		
+        		String word1 = input.get(x).substring(0,input.get(x).indexOf(' '));
+        		int y = input.get(x).indexOf(' ');
+        		while(input.get(x).charAt(y) == ' ')
+        		{
+        			y++;
+        		}
+        		String word2 = input.get(x).substring(y);
+        		if(validWords(word1, word2, dictionary))
+        		{
+        			List<String> result = wordLadderSolver.computeLadder(word1, word2);
+ //             	  boolean correct = wordLadderSolver.validateResult(word1, word2, result);
+        			System.out.println("For the input words \"" + word1 + "\" and \"" + word2 + "\" the following word ladder was found");
+                
+        			if(result.size() == 0)
+        			{
+        				System.err.println("There is no word ladder between " + word1 + " and " + word2 + "!");
+        			}
+        			
+        			for(int z = 0; z < result.size(); z++)
+        			{
+        				System.out.print(result.get(z));
+        				if(z != (result.size() - 1))
+        					System.out.print(" ");
+        				else
+        					System.out.print("\n");
+        			}
+        			x++;
+        		}
+        		else
+        			x++;
+        		
+        		System.out.println("**********");
+        	}	
         } 
         catch (NoSuchLadderException e) 
         {
@@ -183,5 +218,31 @@ public class Assign4Driver
 	    	   return false;
 	       }
 	   }
+	   
+       /********************************************************************************
+	   * Method Name: oneCharDifference                                                *
+	   * Purpose: to see whether the two words are the same except for one letter      *
+	   * Returns: true or false                                                        *                       
+	   ********************************************************************************/
+	   
+	   public static boolean validWords(String first, String last, ArrayList<String> dict)
+	   {
+		   if(first.length() != 5 || last.length() != 5)
+		   {
+			   System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
+   				System.err.println("At least one of the words " + first + " and " + last 
+   					+ " are not legitimate 5-letter words from the dictionary.");
+   				return false;
+		   }
+		   
+		   if(!dict.contains(first) || !dict.contains(last))
+		   {
+			   System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
+   				System.err.println("At least one of the words " + first + " and " + last 
+   					+ " are not legitimate 5-letter words from the dictionary.");
+   				return false;
+		   }
 
+		   return true;
+	   }
 }
