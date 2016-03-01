@@ -1,14 +1,32 @@
 package assignment4;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Assign4Driver
 {
     public static void main(String[] args)
     {
+		ArrayList<String> dictionary = new ArrayList<String>();
+		dictionary = dictionaryFile(args[0]);
+		ArrayList<String> input = new ArrayList<String>();
+		input = inputFile(args[1]);
         // Create a word ladder solver object
-        Assignment4Interface wordLadderSolver = new WordLadderSolver();
+	    HashMap<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
+        for (String thewords : dictionary) {
+            graph.put(thewords, new ArrayList<String>());
+        }
+        populateValue(dictionary, graph);
 
+        Assignment4Interface wordLadderSolver = new WordLadderSolver();
+        
         try 
         {
             List<String> result = wordLadderSolver.computeLadder("money", "honey");
@@ -19,4 +37,151 @@ public class Assign4Driver
             e.printStackTrace();
         }
     }
+    
+       /********************************************************************************
+	   * Method Name: dictionaryFile                                                             *
+	   * Purpose: opens the dictionary file and then reads each line until there are no*
+	   * 		   more lines to read and stores each line as its own                  *
+	   *           element in an arraylist.                                            *                
+	   * Returns: arraylist of every line in the input file, each line is              *
+	   * 		  it's own element in arraylist                                        *                       
+	   ********************************************************************************/
+	  static ArrayList<String> dictionaryFile(String filename)
+	  {
+		  
+		  ArrayList<String> inputlines = new ArrayList<String>();
+		  
+		  try 
+			{
+				FileReader freader = new FileReader(filename);
+				BufferedReader reader = new BufferedReader(freader);
+				
+				for (String s = reader.readLine(); s != null; s = reader.readLine()) 
+				{ 
+					if (s.charAt(0)!= '*'){
+					    char[] chars = s.toCharArray();
+					    for (int i = 0; i < chars.length; i++){
+					    	if(!Character.isLetter(chars[i])){
+					    		s = s.substring(0,i);
+					    		i = chars.length;
+					    	}
+					    }		
+						inputlines.add(s);
+					}
+				}
+				reader.close();
+				return inputlines;
+			} 
+			catch (FileNotFoundException e) 
+			{
+				System.err.println ("Error: File not found. Exiting...");
+				e.printStackTrace();
+				System.exit(-1);
+			} catch (IOException e) 
+			{
+				System.err.println ("Error: IO exception. Exiting...");
+				e.printStackTrace();
+				System.exit(-1);
+			}		  		  
+		  return null;
+	  }
+	  
+	  /********************************************************************************
+	   * Method Name: inputFile                                                        *
+	   * Purpose: opens the input file and then reads each line until there are no     *
+	   * 		   more lines to read and stores each line as its own                  *
+	   *           element in an arraylist.                                            *                
+	   * Returns: arraylist of every line in the input file, each line is              *
+	   * 		  it's own element in arraylist                                        *                       
+	   ********************************************************************************/
+	  static ArrayList<String> inputFile(String filename)
+	  {
+		  
+		  ArrayList<String> inputlines = new ArrayList<String>();
+		  
+		  try 
+			{
+				FileReader freader = new FileReader(filename);
+				BufferedReader reader = new BufferedReader(freader);
+				
+				for (String s = reader.readLine(); s != null; s = reader.readLine()) 
+				{ 		
+					inputlines.add(s);				
+				}
+				reader.close();
+				return inputlines;
+			} 
+			catch (FileNotFoundException e) 
+			{
+				System.err.println ("Error: File not found. Exiting...");
+				e.printStackTrace();
+				System.exit(-1);
+			} catch (IOException e) 
+			{
+				System.err.println ("Error: IO exception. Exiting...");
+				e.printStackTrace();
+				System.exit(-1);
+			}		  		  
+		  return null;
+	  }
+	  
+	  
+       /********************************************************************************
+	   * Method Name: populateValue                                                    *
+	   * Purpose: takes every key and finds the other keys that only differ one        *
+	   * 		  character from it. All these other keys are placed into an arraylist *
+	   *          which is the value for the primary key                               *                
+	   * Returns: nothing                                                              *                       
+	   ********************************************************************************/
+	   public static void populateValue(ArrayList<String> words, HashMap<String, ArrayList<String>> graph) {
+	       int f = 0;
+		   Set <String> primarykeys = graph.keySet();
+	       //does this for every key in the graph
+		   for (String x : primarykeys) {
+		       //setting the value of the key to this arraylist
+	           ArrayList<String> primaryterms = graph.get(x);
+	  	       Set <String> secondarykeys = graph.keySet(); 
+	  	       //does this for every key in the graph
+	           for (String y : secondarykeys) {
+				   //setting the value of the key to this arraylist
+	               ArrayList<String> secondaryterms = graph.get(y);
+	               //if the keys differ by one letter then they will be added to the arraylists
+	               if (oneCharDifference(x,y)) {
+	                   if (!primaryterms.contains(y)) {
+	                       primaryterms.add(y);
+	                   }
+	                   if (!secondaryterms.contains(x)) {
+	                       secondaryterms.add(x);
+	                   }
+	               }
+	               //overwrites the key with the updated values
+	               graph.put(y, secondaryterms);
+	           }
+               //overwrites the key with the updated values
+	           graph.put(x, primaryterms);
+	           f++;
+	       }
+	   }
+	  
+	  
+       /********************************************************************************
+	   * Method Name: oneCharDifference                                                *
+	   * Purpose: to see whether the two words are the same except for one letter      *
+	   * Returns: true or false                                                        *                       
+	   ********************************************************************************/
+	   public static boolean oneCharDifference(String word1, String word2) {
+	       int difference = 0;
+	       for (int i = 0; i < word1.length(); i++) {
+	           if (word1.charAt(i) != word2.charAt(i)) {
+	               difference++;
+	           }
+	       }
+	       if (difference == 1){
+	    	   return true;
+	       }
+	       else{
+	    	   return false;
+	       }
+	   }
+
 }
