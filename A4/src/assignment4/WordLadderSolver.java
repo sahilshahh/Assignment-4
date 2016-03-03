@@ -57,10 +57,12 @@ public class WordLadderSolver implements Assignment4Interface
     		}
     	}
     	
-    	previousWord.put(startWord, null);
-    	
-    	return getLadder(previousWord, startWord, endWord);
-    	
+    	previousWord.put(startWord, null);   	
+    	List<String> ladder = getLadder(previousWord, startWord, endWord);
+    	if (ladder.size()==0 ){
+    		throw new NoSuchLadderException("There is no word ladder between " + startWord + " and " + endWord + "!");
+    	}
+    	return ladder;
 
     }
 

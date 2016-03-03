@@ -27,50 +27,51 @@ public class Assign4Driver
         Assignment4Interface wordLadderSolver = new WordLadderSolver(graph);
         int x = 0;
         
-        try 
-        {
         	while (x < input.size())
         	{
-        		
-        		String word1 = input.get(x).substring(0,input.get(x).indexOf(' '));
-        		int y = input.get(x).indexOf(' ');
-        		while(input.get(x).charAt(y) == ' ')
-        		{
-        			y++;
+        		try{
+	        		String word1 = input.get(x).substring(0,input.get(x).indexOf(' '));
+	        		int y = input.get(x).indexOf(' ');
+	        		while(input.get(x).charAt(y) == ' ')
+	        		{
+	        			y++;
+	        		}
+	        		String word2 = input.get(x).substring(y);
+	        		if(validWords(word1, word2, dictionary))
+	        		{
+	        			List<String> result = wordLadderSolver.computeLadder(word1, word2);
+	 //             	boolean correct = wordLadderSolver.validateResult(word1, word2, result);
+	        			System.out.println("For the input words \"" + word1 + "\" and \"" + word2 + "\" the following word ladder was found");
+	                
+	        			if(result.size() == 0)
+	        			{
+	        				//changed this to out and it seems to work now
+	        				System.out.println("There is no word ladder between " + word1 + " and " + word2 + "!");
+	        			}
+	        			
+	        			for(int z = 0; z < result.size(); z++)
+	        			{
+	        				System.out.print(result.get(z));
+	        				if(z != (result.size() - 1))
+	        					System.out.print(" ");
+	        				else
+	        					System.out.print("\n");
+	        			}
+	        			x++;
+	        		}
+	        		else{
+	        			x++;
+	        		}
+	        		System.out.println("**********");
         		}
-        		String word2 = input.get(x).substring(y);
-        		if(validWords(word1, word2, dictionary))
-        		{
-        			List<String> result = wordLadderSolver.computeLadder(word1, word2);
- //             	boolean correct = wordLadderSolver.validateResult(word1, word2, result);
-        			System.out.println("For the input words \"" + word1 + "\" and \"" + word2 + "\" the following word ladder was found");
-                
-        			if(result.size() == 0)
-        			{
-        				System.err.println("There is no word ladder between " + word1 + " and " + word2 + "!");
-        			}
-        			
-        			for(int z = 0; z < result.size(); z++)
-        			{
-        				System.out.print(result.get(z));
-        				if(z != (result.size() - 1))
-        					System.out.print(" ");
-        				else
-        					System.out.print("\n");
-        			}
-        			x++;
-        		}
-        		else
-        			x++;
-        		
-        		System.out.println("**********");
+                catch (NoSuchLadderException e) 
+                {
+                    x++;
+                	System.out.println(e.getMessage());
+                	System.out.println("**********");
+                }
         	}	
         } 
-        catch (NoSuchLadderException e) 
-        {
-            e.printStackTrace();
-        }
-    }
     
        /********************************************************************************
 	   * Method Name: dictionaryFile                                                             *
@@ -227,16 +228,18 @@ public class Assign4Driver
 	   {
 		   if(first.length() != 5 || last.length() != 5)
 		   {
-			   System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
-   				System.err.println("At least one of the words " + first + " and " + last 
+			    System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
+   				//changes err to out
+			    System.out.println("At least one of the words " + first + " and " + last 
    					+ " are not legitimate 5-letter words from the dictionary.");
    				return false;
 		   }
 		   
 		   if(!dict.contains(first) || !dict.contains(last))
 		   {
-			   System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
-   				System.err.println("At least one of the words " + first + " and " + last 
+			    System.out.println("For the input words \"" + first + "\" and \"" + last + "\" ");
+   				//changed err to out
+			    System.out.println("At least one of the words " + first + " and " + last 
    					+ " are not legitimate 5-letter words from the dictionary.");
    				return false;
 		   }
