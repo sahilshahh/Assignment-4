@@ -10,15 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
+
 
 // do not change class name or interface it implements
 public class WordLadderSolver implements Assignment4Interface
 {
     // delcare class members here.
 	private HashMap<String, ArrayList<String>> hashMap = new HashMap<String, ArrayList<String>>();
-	private ArrayList<String> finalList = new ArrayList<String>();
-    // add a constructor for this object. HINT: it would be a good idea to set up the dictionary there
+	//private ArrayList<String> finalList = new ArrayList<String>();
+    
+	// add a constructor for this object. HINT: it would be a good idea to set up the dictionary there
 	public WordLadderSolver()
 	{
 		

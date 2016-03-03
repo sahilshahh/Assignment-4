@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class Assign4Driver
@@ -43,7 +42,7 @@ public class Assign4Driver
         		if(validWords(word1, word2, dictionary))
         		{
         			List<String> result = wordLadderSolver.computeLadder(word1, word2);
- //             	  boolean correct = wordLadderSolver.validateResult(word1, word2, result);
+ //             	boolean correct = wordLadderSolver.validateResult(word1, word2, result);
         			System.out.println("For the input words \"" + word1 + "\" and \"" + word2 + "\" the following word ladder was found");
                 
         			if(result.size() == 0)
@@ -168,8 +167,8 @@ public class Assign4Driver
 	   *          which is the value for the primary key                               *                
 	   * Returns: nothing                                                              *                       
 	   ********************************************************************************/
-	   public static void populateValue(ArrayList<String> words, HashMap<String, ArrayList<String>> graph) {
-	       int f = 0;
+	   public static void populateValue(ArrayList<String> words, HashMap<String, ArrayList<String>> graph) 
+	   {
 		   Set <String> primarykeys = graph.keySet();
 	       //does this for every key in the graph
 		   for (String x : primarykeys) {
@@ -194,7 +193,6 @@ public class Assign4Driver
 	           }
                //overwrites the key with the updated values
 	           graph.put(x, primaryterms);
-	           f++;
 	       }
 	   }
 	  
@@ -220,8 +218,8 @@ public class Assign4Driver
 	   }
 	   
        /********************************************************************************
-	   * Method Name: oneCharDifference                                                *
-	   * Purpose: to see whether the two words are the same except for one letter      *
+	   * Method Name: validWords                                                       *
+	   * Purpose: checks if the two words are valid input words                        *
 	   * Returns: true or false                                                        *                       
 	   ********************************************************************************/
 	   
