@@ -8,9 +8,4 @@ public class NoSuchLadderException extends Exception
     {
         super(message);
     }
-
-    public NoSuchLadderException(String message, Throwable throwable)
-    {
-        super(message, throwable);
-    }
 }
