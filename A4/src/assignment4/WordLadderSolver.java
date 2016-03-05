@@ -58,11 +58,21 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	
     	previousWord.put(startWord, null);   	
-    	List<String> ladder = getLadder(previousWord, startWord, endWord);
-    	if (ladder.size()==0 ){
+    	
+    	LinkedList<String> result = new LinkedList<String>();
+    	
+    	if(previousWord.get(endWord) != null)
+    	{
+    		for(String s = endWord; s != null; s = previousWord.get(s))
+    		{
+    			result.addFirst(s);
+    		}
+    	}
+    	
+    	if (result.size()==0 ){
     		throw new NoSuchLadderException("There is no word ladder between " + startWord + " and " + endWord + "!");
     	}
-    	return ladder;
+    	return result;
 
     }
 
@@ -70,19 +80,5 @@ public class WordLadderSolver implements Assignment4Interface
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
         throw new UnsupportedOperationException("Not implemented yet!");
-    }
-
-    public List<String> getLadder(Map<String, String> prev, String start, String end)
-    {
-    	LinkedList<String> result = new LinkedList<String>();
-    	
-    	if(prev.get(end) != null)
-    	{
-    		for(String s = end; s != null; s = prev.get(s))
-    		{
-    			result.addFirst(s);
-    		}
-    	}
-    	return result;
     }
 }
