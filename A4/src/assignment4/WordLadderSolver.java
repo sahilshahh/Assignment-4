@@ -1,6 +1,6 @@
-/*
-    ADD YOUR HEADER HERE
- */
+/* Shah, Sahil and Frederick, Cameron
+ * ss63683 and csf596 
+ * EE 422C - Assignment 4*/
 
 package assignment4;
 
@@ -38,8 +38,8 @@ public class WordLadderSolver implements Assignment4Interface
     	Queue<String> queue = new LinkedList<String>();
     	
     	queue.add(startWord);
-    	//this loop creates linkages between the starting word and all of the words that are one letter different
-    	//for each word that is one letter different, it finds the letters that are one letter different
+    	//this loop creates linkages between the starting word and all of the words that are one letter different.
+    	//for each word that is one letter different, it finds the letters that are one letter different from it
     	while (!queue.isEmpty())
     	{
     		String store = queue.element();

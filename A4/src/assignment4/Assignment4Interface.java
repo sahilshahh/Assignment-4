@@ -1,5 +1,8 @@
-package assignment4;
+/* Shah, Sahil and Frederick, Cameron
+ * ss63683 and csf596 
+ * EE 422C - Assignment 4*/
 
+package assignment4;
 
 import java.util.List;
 
