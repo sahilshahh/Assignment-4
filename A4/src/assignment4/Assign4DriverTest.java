@@ -12,6 +12,7 @@ public class Assign4DriverTest {
 	public void testOneCharDifference() {
 		assertEquals(true, Assign4Driver.oneCharDifference("house", "mouse"));
 		assertEquals(false, Assign4Driver.oneCharDifference("house", "mouth"));
+		assertEquals(false, Assign4Driver.oneCharDifference("house", "mouth"));
 	}
 
 	@Test

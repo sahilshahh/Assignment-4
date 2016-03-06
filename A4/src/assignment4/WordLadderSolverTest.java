@@ -33,14 +33,25 @@ public class WordLadderSolverTest {
 		assertTrue(resultsize == 2);
 		
 		try{
-			List<String> result1 = wordLadderSolver.computeLadder("hello", "world");
+			List<String> result1 = wordLadderSolver.computeLadder("devil", "angel");
 			int resultsize1 = result1.size();
 			assertTrue(resultsize1 == 2);
 		    fail("should throw exception");
 		}
 		catch(NoSuchLadderException e){
 			String message = e.getMessage();
-			assertEquals(message,"There is no word ladder between hello and world!");
+			assertEquals(message,"There is no word ladder between devil and angel!");
+		}
+		
+		try{
+			List<String> result1 = wordLadderSolver.computeLadder("devil", "devil");
+			int resultsize1 = result1.size();
+			assertTrue(resultsize1 == 2);
+		    fail("should throw exception");
+		}
+		catch(NoSuchLadderException e){
+			String message = e.getMessage();
+			assertEquals(message,"There is no word ladder between devil and devil!");
 		}
 		
 		List<String> result2 = wordLadderSolver.computeLadder("heads", "teals");

@@ -42,12 +42,6 @@ public class Assign4Driver
 	        			List<String> result = wordLadderSolver.computeLadder(word1, word2);
 	 //             	boolean correct = wordLadderSolver.validateResult(word1, word2, result);
 	        			System.out.println("For the input words \"" + word1 + "\" and \"" + word2 + "\" the following word ladder was found");
-	                
-	        			if(result.size() == 0)
-	        			{
-	        				//changed this to out and it seems to work now
-	        				System.out.println("There is no word ladder between " + word1 + " and " + word2 + "!");
-	        			}
 	        			
 	        			for(int z = 0; z < result.size(); z++)
 	        			{
@@ -82,10 +76,8 @@ public class Assign4Driver
 	   * 		  it's own element in arraylist                                        *                       
 	   ********************************************************************************/
 	  static ArrayList<String> dictionaryFile(String filename)
-	  {
-		  
-		  ArrayList<String> inputlines = new ArrayList<String>();
-		  
+	  {		  
+		  ArrayList<String> inputlines = new ArrayList<String>();		  
 		  try 
 			{
 				FileReader freader = new FileReader(filename);

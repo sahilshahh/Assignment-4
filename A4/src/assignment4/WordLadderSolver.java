@@ -38,6 +38,8 @@ public class WordLadderSolver implements Assignment4Interface
     	Queue<String> queue = new LinkedList<String>();
     	
     	queue.add(startWord);
+    	//this loop creates linkages between the starting word and all of the words that are one letter different
+    	//for each word that is one letter different, it finds the letters that are one letter different
     	while (!queue.isEmpty())
     	{
     		String store = queue.element();
@@ -55,12 +57,10 @@ public class WordLadderSolver implements Assignment4Interface
     				}
     			}
     		}
-    	}
-    	
-    	previousWord.put(startWord, null);   	
-    	
+    	}   	
+    	previousWord.put(startWord, null);   	    	
     	LinkedList<String> result = new LinkedList<String>();
-    	
+    	//given the ending word, this loop goes back up the map and finds how the words relate to get to the first
     	if(previousWord.get(endWord) != null)
     	{
     		for(String s = endWord; s != null; s = previousWord.get(s))
